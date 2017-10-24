@@ -15,6 +15,14 @@
 		CEF73F521F9F73EF008D5761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F511F9F73EF008D5761 /* Assets.xcassets */; };
 		CEF73F551F9F73EF008D5761 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F531F9F73EF008D5761 /* LaunchScreen.storyboard */; };
 		CEF73F601F9F73F0008D5761 /* AvatarUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */; };
+		CEF73F771F9F886F008D5761 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F761F9F886F008D5761 /* AuthenticationManager.swift */; };
+		CEF73F7C1F9F88AF008D5761 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F7B1F9F88AF008D5761 /* APIClient.swift */; };
+		CEF73F841F9F8930008D5761 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F821F9F8930008D5761 /* LoginViewController.swift */; };
+		CEF73F851F9F8930008D5761 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F831F9F8930008D5761 /* LoginViewController.xib */; };
+		CEF73F881F9F8946008D5761 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F871F9F8946008D5761 /* LoginViewModel.swift */; };
+		CEF73F8A1F9F8963008D5761 /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F891F9F8963008D5761 /* ProfileViewModel.swift */; };
+		CEF73F8E1F9F897A008D5761 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F8C1F9F897A008D5761 /* ProfileViewController.swift */; };
+		CEF73F8F1F9F897A008D5761 /* ProfileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F8D1F9F897A008D5761 /* ProfileViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +49,14 @@
 		CEF73F5B1F9F73EF008D5761 /* AvatarUpdaterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvatarUpdaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUpdaterTests.swift; sourceTree = "<group>"; };
 		CEF73F611F9F73F0008D5761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF73F761F9F886F008D5761 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
+		CEF73F7B1F9F88AF008D5761 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
+		CEF73F821F9F8930008D5761 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		CEF73F831F9F8930008D5761 /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		CEF73F871F9F8946008D5761 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
+		CEF73F891F9F8963008D5761 /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		CEF73F8C1F9F897A008D5761 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		CEF73F8D1F9F897A008D5761 /* ProfileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ProfileViewController.xib; sourceTree = "<group>"; };
 		E7F6D92C9BCC479591807B91 /* Pods-AvatarUpdater.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvatarUpdater.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvatarUpdater/Pods-AvatarUpdater.debug.xcconfig"; sourceTree = "<group>"; };
 		EC5287C274469C0CA9A6B60A /* Pods-AvatarUpdaterTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvatarUpdaterTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvatarUpdaterTests/Pods-AvatarUpdaterTests.release.xcconfig"; sourceTree = "<group>"; };
 		FDD4DA0254A19C4FC6A32FB1 /* Pods-AvatarUpdater.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvatarUpdater.release.xcconfig"; path = "Pods/Target Support Files/Pods-AvatarUpdater/Pods-AvatarUpdater.release.xcconfig"; sourceTree = "<group>"; };
@@ -112,6 +128,10 @@
 				CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */,
 				CEF73F4C1F9F73EF008D5761 /* ViewController.swift */,
 				CEF73F4E1F9F73EF008D5761 /* Main.storyboard */,
+				CEF73F861F9F8935008D5761 /* Login */,
+				CEF73F8B1F9F8966008D5761 /* Profile */,
+				CEF73F781F9F8876008D5761 /* API */,
+				CEF73F911F9F8A09008D5761 /* Auth */,
 				CEF73F511F9F73EF008D5761 /* Assets.xcassets */,
 				CEF73F531F9F73EF008D5761 /* LaunchScreen.storyboard */,
 				CEF73F561F9F73EF008D5761 /* Info.plist */,
@@ -126,6 +146,42 @@
 				CEF73F611F9F73F0008D5761 /* Info.plist */,
 			);
 			path = AvatarUpdaterTests;
+			sourceTree = "<group>";
+		};
+		CEF73F781F9F8876008D5761 /* API */ = {
+			isa = PBXGroup;
+			children = (
+				CEF73F7B1F9F88AF008D5761 /* APIClient.swift */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		CEF73F861F9F8935008D5761 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				CEF73F821F9F8930008D5761 /* LoginViewController.swift */,
+				CEF73F831F9F8930008D5761 /* LoginViewController.xib */,
+				CEF73F871F9F8946008D5761 /* LoginViewModel.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		CEF73F8B1F9F8966008D5761 /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				CEF73F8C1F9F897A008D5761 /* ProfileViewController.swift */,
+				CEF73F8D1F9F897A008D5761 /* ProfileViewController.xib */,
+				CEF73F891F9F8963008D5761 /* ProfileViewModel.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		CEF73F911F9F8A09008D5761 /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				CEF73F761F9F886F008D5761 /* AuthenticationManager.swift */,
+			);
+			path = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -217,8 +273,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF73F851F9F8930008D5761 /* LoginViewController.xib in Resources */,
 				CEF73F551F9F73EF008D5761 /* LaunchScreen.storyboard in Resources */,
 				CEF73F521F9F73EF008D5761 /* Assets.xcassets in Resources */,
+				CEF73F8F1F9F897A008D5761 /* ProfileViewController.xib in Resources */,
 				CEF73F501F9F73EF008D5761 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -352,8 +410,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF73F7C1F9F88AF008D5761 /* APIClient.swift in Sources */,
+				CEF73F771F9F886F008D5761 /* AuthenticationManager.swift in Sources */,
+				CEF73F881F9F8946008D5761 /* LoginViewModel.swift in Sources */,
 				CEF73F4D1F9F73EF008D5761 /* ViewController.swift in Sources */,
+				CEF73F841F9F8930008D5761 /* LoginViewController.swift in Sources */,
 				CEF73F4B1F9F73EF008D5761 /* AppDelegate.swift in Sources */,
+				CEF73F8E1F9F897A008D5761 /* ProfileViewController.swift in Sources */,
+				CEF73F8A1F9F8963008D5761 /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -510,11 +574,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EDG6T8N8TV;
 				INFOPLIST_FILE = AvatarUpdater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosamer.AvatarUpdater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -526,11 +591,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = EDG6T8N8TV;
 				INFOPLIST_FILE = AvatarUpdater/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mosamer.AvatarUpdater;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
