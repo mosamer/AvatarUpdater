@@ -11,7 +11,27 @@ import Action
 
 class LoginViewModel: LoginViewModelType {
 
-    var email: AnyObserver<String> { return AnyObserver { _ in } }
-    var password: AnyObserver<String> { return AnyObserver { _ in } }
-    lazy var loginAction: CocoaAction = CocoaAction { Observable.empty() }
+    private let _email = PublishSubject<String>()
+    private let _password = PublishSubject<String>()
+
+    lazy var loginAction: CocoaAction = {
+        let validEmail = _email.map {
+            $0.range(of: "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}",
+                     options: .regularExpression) != nil
+        }
+        let validPassword = _password.map { $0.count >= 8 }
+
+        let enabled = Observable.combineLatest(validEmail, validPassword) { $0 && $1 }
+
+        return CocoaAction(enabledIf: enabled) {
+            return Observable.empty()
+        }
+    }()
+
+    var email: AnyObserver<String> {
+        return _email.asObserver()
+    }
+    var password: AnyObserver<String> {
+        return _password.asObserver()
+    }
 }

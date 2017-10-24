@@ -41,10 +41,9 @@ class LoginViewController: UIViewController {
         super.viewDidLoad()
         email.rx.text.orEmpty.bind(to: viewModel.email).disposed(by: bag)
         password.rx.text.orEmpty.bind(to: viewModel.password).disposed(by: bag)
-        
-        let action = viewModel.loginAction
-        login.rx.action = action
-        action.executing.bind(to: loading.rx.isAnimating).disposed(by: bag)
+
+        login.rx.action = viewModel.loginAction
+        viewModel.loginAction.executing.bind(to: loading.rx.isAnimating).disposed(by: bag)
     }
 
 }

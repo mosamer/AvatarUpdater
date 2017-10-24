@@ -9,6 +9,9 @@
 /* Begin PBXBuildFile section */
 		998889848BE9B860FF4CD276 /* Pods_AvatarUpdaterTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12140DD1A1980CE8FBF55947 /* Pods_AvatarUpdaterTests.framework */; };
 		9A56047750BAE4B678B69AF6 /* Pods_AvatarUpdater.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C96DA79D594E472FB34710AD /* Pods_AvatarUpdater.framework */; };
+		CE9DA00F1F9F9D7400CC593A /* TestScheduler+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */; };
+		CE9DA0111F9F9F1700CC593A /* TestableObserver+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */; };
+		CE9DA0131F9F9F3E00CC593A /* LoginViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */; };
 		CEF73F4B1F9F73EF008D5761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */; };
 		CEF73F4D1F9F73EF008D5761 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F4C1F9F73EF008D5761 /* ViewController.swift */; };
 		CEF73F501F9F73EF008D5761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F4E1F9F73EF008D5761 /* Main.storyboard */; };
@@ -39,6 +42,9 @@
 		12140DD1A1980CE8FBF55947 /* Pods_AvatarUpdaterTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvatarUpdaterTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		31EC25E19C92D6FE4F7A54A5 /* Pods-AvatarUpdaterTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AvatarUpdaterTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-AvatarUpdaterTests/Pods-AvatarUpdaterTests.debug.xcconfig"; sourceTree = "<group>"; };
 		C96DA79D594E472FB34710AD /* Pods_AvatarUpdater.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_AvatarUpdater.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestScheduler+Ext.swift"; sourceTree = "<group>"; };
+		CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestableObserver+Ext.swift"; sourceTree = "<group>"; };
+		CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelSpecs.swift; sourceTree = "<group>"; };
 		CEF73F471F9F73EF008D5761 /* AvatarUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvatarUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CEF73F4C1F9F73EF008D5761 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +150,8 @@
 			children = (
 				CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */,
 				CEF73F611F9F73F0008D5761 /* Info.plist */,
+				CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */,
+				CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */,
 			);
 			path = AvatarUpdaterTests;
 			sourceTree = "<group>";
@@ -162,6 +170,7 @@
 				CEF73F821F9F8930008D5761 /* LoginViewController.swift */,
 				CEF73F831F9F8930008D5761 /* LoginViewController.xib */,
 				CEF73F871F9F8946008D5761 /* LoginViewModel.swift */,
+				CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -426,6 +435,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEF73F601F9F73F0008D5761 /* AvatarUpdaterTests.swift in Sources */,
+				CE9DA00F1F9F9D7400CC593A /* TestScheduler+Ext.swift in Sources */,
+				CE9DA0111F9F9F1700CC593A /* TestableObserver+Ext.swift in Sources */,
+				CE9DA0131F9F9F3E00CC593A /* LoginViewModelSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
