@@ -17,8 +17,12 @@ protocol LoginViewModelType {
     var email: AnyObserver<String> { get }
     /// Bindable sink for user password input
     var password: AnyObserver<String> { get }
-    /// Login performable action
-    var loginAction: CocoaAction { get }
+    /// Bindable sink to trigger login operation
+    var login: AnyObserver<Void> { get }
+    /// Indicate whether login button should be enabled
+    var isLoginEnabled: Driver<Bool> { get }
+    /// Indicate whether login loading indicator should be shown
+    var isLoading: Driver<Bool> { get }
 }
 
 class LoginViewController: UIViewController {
@@ -42,8 +46,9 @@ class LoginViewController: UIViewController {
         email.rx.text.orEmpty.bind(to: viewModel.email).disposed(by: bag)
         password.rx.text.orEmpty.bind(to: viewModel.password).disposed(by: bag)
 
-        login.rx.action = viewModel.loginAction
-        viewModel.loginAction.executing.bind(to: loading.rx.isAnimating).disposed(by: bag)
+        viewModel.isLoginEnabled.drive(login.rx.isEnabled).disposed(by: bag)
+        viewModel.isLoading.drive(loading.rx.isAnimating).disposed(by: bag)
+        login.rx.tap.bind(to: viewModel.login).disposed(by: bag)
     }
 
 }

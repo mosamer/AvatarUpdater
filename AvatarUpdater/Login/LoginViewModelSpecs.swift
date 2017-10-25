@@ -9,6 +9,7 @@
 import Quick
 import Nimble
 import RxSwift
+import RxCocoa
 import RxTest
 @testable import AvatarUpdater
 
@@ -28,7 +29,9 @@ class LoginViewModelSpecs: QuickSpec {
         describe("Enable Login") {
             var enabled: TestableObserver<Bool>!
             beforeEach {
-                enabled = scheduler.record(source: sut.loginAction.enabled)
+                SharingScheduler.mock(scheduler: scheduler) {
+                    enabled = scheduler.record(source: sut.isLoginEnabled)
+                }
             }
             afterEach {
                 enabled = nil
