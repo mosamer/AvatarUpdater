@@ -7,10 +7,14 @@
 //
 
 import UIKit
-
+import RxSwift
+import RxCocoa
 /// A type represnting a view model for `ProfileViewController`
 protocol ProfileViewModelType {
-
+    /// User avatart image
+    var userAvatar: Driver<UIImage> { get }
+    /// User email address
+    var userEmail: Driver<String> { get }
 }
 
 class ProfileViewController: UIViewController {
@@ -18,6 +22,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet private weak var email: UILabel!
     
     private let viewModel: ProfileViewModelType
+    private let bag = DisposeBag()
     init(viewModel: ProfileViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: "ProfileViewController", bundle: nil)
@@ -31,6 +36,9 @@ class ProfileViewController: UIViewController {
         avatar.layer.borderColor = UIColor.darkGray.cgColor
         avatar.layer.borderWidth = 3.0
         avatar.layer.masksToBounds = true
+
+        viewModel.userAvatar.drive(avatar.rx.image).disposed(by: bag)
+        viewModel.userEmail.drive(email.rx.text).disposed(by: bag)
     }
 
 }
