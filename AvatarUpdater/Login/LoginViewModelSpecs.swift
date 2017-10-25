@@ -76,6 +76,33 @@ class LoginViewModelSpecs: QuickSpec {
                 expect(mockAPI.userPassword) == "password"
             }
         }
+        describe("Error messages") {
+            var message: TestableObserver<String>!
+            beforeEach {
+                set(email: "user@email.com", password: "password")
+                SharingScheduler.mock(scheduler: scheduler) {
+                    message = scheduler.record(source: sut.errorMessage)
+                }
+            }
+            it("show wrong credintials, if no response") {
+                mockAPI.loginEvents = [error(0, APIClient.Error.noResponse)]
+                scheduler.drive(sut.login, with: [next(5, ())])
+                scheduler.start()
+                expect(message.lastElement) == "Wrong email or password"
+            }
+            it("show generic message, if any other error") {
+                mockAPI.loginEvents = [error(0, APIClient.Error.misformattedResponse)]
+                scheduler.drive(sut.login, with: [next(5, ())])
+                scheduler.start()
+                expect(message.lastElement) == "Something went wrong. Try Again!"
+            }
+            it("show none, if successful") {
+                mockAPI.loginEvents = [next(0, "")]
+                scheduler.drive(sut.login, with: [next(5, ())])
+                scheduler.start()
+                expect(message.lastElement) == ""
+            }
+        }
     }
     
     private class MockLoginAPI: LoginAPI {

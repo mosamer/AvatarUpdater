@@ -22,7 +22,7 @@ protocol LoginAPI {
 }
 
 class LoginViewModel: LoginViewModelType {
-
+    
     private let _email = PublishSubject<String>()
     private let _password = PublishSubject<String>()
     typealias Credintials = (email: String, password: String)
@@ -34,10 +34,10 @@ class LoginViewModel: LoginViewModelType {
         }
         
         let credentials = Observable.combineLatest(_email, _password) { (email: $0, password: $1) }
-       _login
-        .withLatestFrom(credentials)
-        .bind(to: loginAction.inputs)
-        .disposed(by: bag)
+        _login
+            .withLatestFrom(credentials)
+            .bind(to: loginAction.inputs)
+            .disposed(by: bag)
     }
     
     var email: AnyObserver<String> {
@@ -65,5 +65,15 @@ class LoginViewModel: LoginViewModelType {
     }
     var isLoading: Driver<Bool> {
         return loginAction.executing.asDriver(onErrorJustReturn: false)
+    }
+    var errorMessage: Driver<String> {
+        let succ = loginAction.elements.map {_ in ""}
+        let fail = loginAction
+            .errors
+            .map {error -> String in
+                guard error.is(APIClient.Error.noResponse) else { return "Something went wrong. Try Again!" }
+                return "Wrong email or password"
+        }
+        return Observable.merge([succ, fail]).distinctUntilChanged().asDriver(onErrorJustReturn: "")
     }
 }

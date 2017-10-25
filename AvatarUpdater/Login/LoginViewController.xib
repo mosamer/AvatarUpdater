@@ -13,6 +13,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="LoginViewController" customModule="AvatarUpdater" customModuleProvider="target">
             <connections>
                 <outlet property="email" destination="DdH-9f-vDx" id="ezw-pa-wIs"/>
+                <outlet property="error" destination="Nys-C4-ONR" id="Gwj-QS-TLS"/>
                 <outlet property="loading" destination="jze-dK-G0e" id="G8L-kX-24r"/>
                 <outlet property="login" destination="qrC-5G-dkZ" id="G0V-Je-dbT"/>
                 <outlet property="password" destination="1dN-tu-D6t" id="41j-EN-fsa"/>
@@ -57,6 +58,12 @@
                         <constraint firstAttribute="height" constant="20" id="unW-Nz-Vc6"/>
                     </constraints>
                 </activityIndicatorView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Nys-C4-ONR">
+                    <rect key="frame" x="187" y="220" width="0.0" height="0.0"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
@@ -67,8 +74,10 @@
                 <constraint firstItem="qrC-5G-dkZ" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="9T6-eh-aVT"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1dN-tu-D6t" secondAttribute="trailing" constant="16" id="M41-e0-tf8"/>
                 <constraint firstItem="jze-dK-G0e" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PjO-ck-kLm"/>
+                <constraint firstItem="Nys-C4-ONR" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="ffc-5f-nDn"/>
                 <constraint firstItem="qrC-5G-dkZ" firstAttribute="top" secondItem="1dN-tu-D6t" secondAttribute="bottom" constant="48" id="lNV-CG-zAR"/>
                 <constraint firstItem="jze-dK-G0e" firstAttribute="top" secondItem="qrC-5G-dkZ" secondAttribute="bottom" constant="8" id="ofh-bO-IF6"/>
+                <constraint firstItem="Nys-C4-ONR" firstAttribute="top" secondItem="1dN-tu-D6t" secondAttribute="bottom" constant="8" id="peM-Nw-LOO"/>
                 <constraint firstItem="1dN-tu-D6t" firstAttribute="top" secondItem="DdH-9f-vDx" secondAttribute="bottom" constant="32" id="spV-g4-EHr"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>

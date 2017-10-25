@@ -23,6 +23,8 @@ protocol LoginViewModelType {
     var isLoginEnabled: Driver<Bool> { get }
     /// Indicate whether login loading indicator should be shown
     var isLoading: Driver<Bool> { get }
+    /// Login request error message
+    var errorMessage: Driver<String> { get }
 }
 
 class LoginViewController: UIViewController {
@@ -34,7 +36,8 @@ class LoginViewController: UIViewController {
     @IBOutlet private weak var password: UITextField!
     @IBOutlet private weak var login: UIButton!
     @IBOutlet private weak var loading: UIActivityIndicatorView!
-
+    @IBOutlet private weak var error: UILabel!
+    
     init(viewModel: LoginViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: "LoginViewController", bundle: nil)
