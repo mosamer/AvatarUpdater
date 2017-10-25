@@ -9,6 +9,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import Action
 /// A type represnting a view model for `ProfileViewController`
 protocol ProfileViewModelType {
     /// User avatart image
@@ -39,6 +40,26 @@ class ProfileViewController: UIViewController {
 
         viewModel.userAvatar.drive(avatar.rx.image).disposed(by: bag)
         viewModel.userEmail.drive(email.rx.text).disposed(by: bag)
-    }
 
+        let tap = UITapGestureRecognizer()
+        avatar.addGestureRecognizer(tap)
+
+        tap
+            .rx.event
+            .map {_ -> [UIAlertAction] in
+                let library = UIAlertAction(title: "Photo Library", style: .default) {_ in}
+                let camera = UIAlertAction(title: "Front Camera", style: .default) {_ in}
+                let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+                return [library, camera, cancel]
+            }
+            .map {actions -> UIAlertController in
+                let alert = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+                actions.forEach { alert.addAction($0) }
+                return alert
+            }
+            .subscribe(onNext: {[unowned self] alert in
+                self.present(alert, animated: true, completion: nil)
+            })
+            .disposed(by: bag)
+    }
 }
