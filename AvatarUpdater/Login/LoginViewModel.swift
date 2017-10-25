@@ -34,7 +34,10 @@ class LoginViewModel: LoginViewModelType {
     private let loginAction: Action<Credintials, User>
     private let bag = DisposeBag()
     
-    init(apiClient: LoginAPI, router: AnyObserver<Navigation>) {
+    init(apiClient: LoginAPI,
+         router: AnyObserver<Navigation>,
+         userUpdater: @escaping (User) -> Void
+        ) {
         loginAction = Action {
             apiClient
                 .login(email: $0.email, password: $0.password)
@@ -49,6 +52,7 @@ class LoginViewModel: LoginViewModelType {
         
         loginAction
             .elements
+            .do(onNext: userUpdater)
             .map { Navigation.profile(user: $0)}
             .bind(to: router)
             .disposed(by: bag)

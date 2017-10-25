@@ -42,7 +42,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 switch event {
                 case .login:
                     let loginViewModel = LoginViewModel(apiClient: APIClient.instance,
-                                                        router: self.router)
+                                                        router: self.router,
+                                                        userUpdater: {_ in})
                     let loginViewController = LoginViewController(viewModel: loginViewModel)
                     return loginViewController
                 case .profile:
