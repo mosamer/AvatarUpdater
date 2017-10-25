@@ -19,6 +19,11 @@ protocol LoginAPI {
     ///   - password: User password
     /// - Returns: Logged-in user ID.
     func login(email: String, password: String) -> Observable<String>
+    /// Fetch user details
+    ///
+    /// - Parameter id: user Id
+    /// - Returns: requested user profile details
+    func user(id: String) -> Observable<User>
 }
 
 class LoginViewModel: LoginViewModelType {
@@ -26,17 +31,26 @@ class LoginViewModel: LoginViewModelType {
     private let _email = PublishSubject<String>()
     private let _password = PublishSubject<String>()
     typealias Credintials = (email: String, password: String)
-    private let loginAction: Action<Credintials, String>
+    private let loginAction: Action<Credintials, User>
     private let bag = DisposeBag()
-    init(apiClient: LoginAPI) {
+    
+    init(apiClient: LoginAPI, router: AnyObserver<Navigation>) {
         loginAction = Action {
-            apiClient.login(email: $0.email, password: $0.password)
+            apiClient
+                .login(email: $0.email, password: $0.password)
+                .flatMapLatest { apiClient.user(id: $0) }
         }
         
         let credentials = Observable.combineLatest(_email, _password) { (email: $0, password: $1) }
         _login
             .withLatestFrom(credentials)
             .bind(to: loginAction.inputs)
+            .disposed(by: bag)
+        
+        loginAction
+            .elements
+            .map { Navigation.profile(user: $0)}
+            .bind(to: router)
             .disposed(by: bag)
     }
     
@@ -67,13 +81,13 @@ class LoginViewModel: LoginViewModelType {
         return loginAction.executing.asDriver(onErrorJustReturn: false)
     }
     var errorMessage: Driver<String> {
-        let succ = loginAction.elements.map {_ in ""}
+        let start = loginAction.inputs.map {_ in ""}
         let fail = loginAction
             .errors
             .map {error -> String in
                 guard error.is(APIClient.Error.noResponse) else { return "Something went wrong. Try Again!" }
                 return "Wrong email or password"
         }
-        return Observable.merge([succ, fail]).distinctUntilChanged().asDriver(onErrorJustReturn: "")
+        return Observable.merge([start, fail]).distinctUntilChanged().asDriver(onErrorJustReturn: "")
     }
 }

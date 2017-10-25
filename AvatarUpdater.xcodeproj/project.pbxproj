@@ -13,6 +13,8 @@
 		CE31783F1FA07E580021102F /* APIClientSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31783E1FA07E580021102F /* APIClientSpecs.swift */; };
 		CE7667DC1FA0C884004C30A9 /* NewSessionEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667DB1FA0C884004C30A9 /* NewSessionEndpoint.swift */; };
 		CE7667DE1FA0DD10004C30A9 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667DD1FA0DD10004C30A9 /* Error+Ext.swift */; };
+		CE7667EA1FA0E638004C30A9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667E91FA0E638004C30A9 /* User.swift */; };
+		CE7667EC1FA0E857004C30A9 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */; };
 		CE9DA00F1F9F9D7400CC593A /* TestScheduler+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */; };
 		CE9DA0111F9F9F1700CC593A /* TestableObserver+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */; };
 		CE9DA0131F9F9F3E00CC593A /* LoginViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */; };
@@ -49,6 +51,8 @@
 		CE31783E1FA07E580021102F /* APIClientSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClientSpecs.swift; sourceTree = "<group>"; };
 		CE7667DB1FA0C884004C30A9 /* NewSessionEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewSessionEndpoint.swift; sourceTree = "<group>"; };
 		CE7667DD1FA0DD10004C30A9 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
+		CE7667E91FA0E638004C30A9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
 		CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestScheduler+Ext.swift"; sourceTree = "<group>"; };
 		CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestableObserver+Ext.swift"; sourceTree = "<group>"; };
 		CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelSpecs.swift; sourceTree = "<group>"; };
@@ -177,6 +181,7 @@
 				CEF73F7B1F9F88AF008D5761 /* APIClient.swift */,
 				CE31783E1FA07E580021102F /* APIClientSpecs.swift */,
 				CE7667DB1FA0C884004C30A9 /* NewSessionEndpoint.swift */,
+				CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -198,6 +203,7 @@
 				CEF73F8C1F9F897A008D5761 /* ProfileViewController.swift */,
 				CEF73F8D1F9F897A008D5761 /* ProfileViewController.xib */,
 				CEF73F891F9F8963008D5761 /* ProfileViewModel.swift */,
+				CE7667E91FA0E638004C30A9 /* User.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -436,6 +442,8 @@
 				CEF73F841F9F8930008D5761 /* LoginViewController.swift in Sources */,
 				CEF73F4B1F9F73EF008D5761 /* AppDelegate.swift in Sources */,
 				CEF73F8E1F9F897A008D5761 /* ProfileViewController.swift in Sources */,
+				CE7667EC1FA0E857004C30A9 /* UserEndpoint.swift in Sources */,
+				CE7667EA1FA0E638004C30A9 /* User.swift in Sources */,
 				CEF73F8A1F9F8963008D5761 /* ProfileViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
