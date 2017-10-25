@@ -66,6 +66,10 @@ class APIClientSpecs: QuickSpec {
                     scheduler.start()
                     expect(response.lastElement) == "1"
                 }
+                it("update user token") {
+                    scheduler.start()
+                    expect(mockStore.updatedToken) == "abcdef"
+                }
             }
         }
     }

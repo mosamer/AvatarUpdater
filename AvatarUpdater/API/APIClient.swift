@@ -88,9 +88,11 @@ class APIClient {
     private static let baseURL = URL(string: "http://localhost:3000")!
     
     private let network: NetworkService
-
+    private let store: TokenStore
+    
     init(network: NetworkService, store: TokenStore) {
         self.network = network
+        self.store = store
     }
     
     private func request<E: Endpoint>(_ endpoint: E) -> Observable<E.Response> {
@@ -115,6 +117,10 @@ class APIClient {
 extension APIClient: LoginAPI {
     func login(email: String, password: String) -> Observable<String> {
         let endpoint = NewSessionEndpoint(email: email, password: password)
-        return self.request(endpoint).map { $0.userId }
+        return self.request(endpoint)
+            .do(onNext: {[unowned self] in
+                self.store.update(token: $0.token)
+            })
+            .map { $0.userId }
     }
 }
