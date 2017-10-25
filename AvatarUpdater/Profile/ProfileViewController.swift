@@ -16,6 +16,8 @@ protocol ProfileViewModelType {
     var userAvatar: Driver<UIImage> { get }
     /// User email address
     var userEmail: Driver<String> { get }
+    /// Bindable sink for picked image
+    var pickedImage: AnyObserver<UIImage> { get }
 }
 
 class ProfileViewController: UIViewController {
@@ -52,9 +54,10 @@ class ProfileViewController: UIViewController {
                 picker.cameraDevice = .front
                 picker.cameraCaptureMode = .photo
             }
+            picker.delegate = self
             self.present(picker, animated: true, completion: nil)
         }
-        
+
         tap
             .rx.event
             .map {_ -> [UIAlertAction] in
@@ -73,5 +76,13 @@ class ProfileViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             })
             .disposed(by: bag)
+    }
+}
+
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
+        viewModel.pickedImage.onNext(image)
+        picker.dismiss(animated: true, completion: nil)
     }
 }

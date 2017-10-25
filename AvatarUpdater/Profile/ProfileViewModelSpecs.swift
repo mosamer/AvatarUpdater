@@ -76,6 +76,18 @@ class ProfileViewModelSpecs: QuickSpec {
                 expect(mockAPI.imageURL) == url
             }
         }
+        it("update with picked avatar") {
+            let url = "http://localhost:3000/avatar.png"
+            mockAPI.imageEvents = [next(0, #imageLiteral(resourceName: "default_avatar"))]
+            sut = ProfileViewModel(user: User(avatarURL: URL(string: url)), api: mockAPI)
+            SharingScheduler.mock(scheduler: scheduler) {
+                let image = scheduler.record(source: sut.userAvatar)
+                scheduler.drive(sut.pickedImage, with: [next(10, #imageLiteral(resourceName: "alt_default_avatar"))])
+                scheduler.start()
+                expect(image.lastElement) == #imageLiteral(resourceName: "alt_default_avatar")
+            }
+
+        }
     }
 
     private class MockProfileAPI: ProfileAPI {

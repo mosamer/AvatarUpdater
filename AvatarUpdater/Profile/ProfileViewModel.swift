@@ -27,7 +27,7 @@ class ProfileViewModel: ProfileViewModelType {
     }
     
     var userAvatar: Driver<UIImage> {
-        return Observable
+        let fetched = Observable
             .just(user)
             .map { $0.avatarURL }
             .flatMap {[unowned self] url -> Observable<UIImage> in
@@ -35,8 +35,13 @@ class ProfileViewModel: ProfileViewModelType {
                 return self.api.image(from: url)
             }
             .asDriver(onErrorJustReturn: #imageLiteral(resourceName: "default_avatar"))
+
+        let picked = _pickedImage.asDriver(onErrorJustReturn: #imageLiteral(resourceName: "default_avatar"))
+        return Driver.merge([fetched, picked]).distinctUntilChanged()
     }
     var userEmail: Driver<String> {
         return Driver.just(user).map { $0.email }
     }
+    private let _pickedImage = PublishSubject<UIImage>()
+    var pickedImage: AnyObserver<UIImage> { return _pickedImage.asObserver()}
 }
