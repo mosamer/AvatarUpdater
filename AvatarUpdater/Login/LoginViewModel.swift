@@ -33,7 +33,8 @@ class LoginViewModel: LoginViewModelType {
     typealias Credintials = (email: String, password: String)
     private let loginAction: Action<Credintials, User>
     private let bag = DisposeBag()
-    init(apiClient: LoginAPI) {
+    
+    init(apiClient: LoginAPI, router: AnyObserver<Navigation>) {
         loginAction = Action {
             apiClient
                 .login(email: $0.email, password: $0.password)
@@ -44,6 +45,12 @@ class LoginViewModel: LoginViewModelType {
         _login
             .withLatestFrom(credentials)
             .bind(to: loginAction.inputs)
+            .disposed(by: bag)
+        
+        loginAction
+            .elements
+            .map { Navigation.profile(user: $0)}
+            .bind(to: router)
             .disposed(by: bag)
     }
     

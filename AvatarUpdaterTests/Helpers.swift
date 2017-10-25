@@ -26,3 +26,15 @@ extension User: Equatable {
     }
 }
 
+extension Navigation: Equatable {
+    public static func ==(lhs: Navigation, rhs: Navigation) -> Bool {
+        switch (lhs, rhs) {
+        case (.login, .login):
+            return true
+        case let (.profile(user1), .profile(user2)):
+            return user1 == user2
+        default:
+            return false
+        }
+    }
+}

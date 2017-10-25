@@ -19,10 +19,13 @@ class LoginViewModelSpecs: QuickSpec {
         var sut: LoginViewModel!
         var mockAPI: MockLoginAPI!
         var scheduler: TestScheduler!
+        var router: TestableObserver<AppDelegate.NavigationEvent>!
+        
         beforeEach {
             scheduler = TestScheduler(initialClock: 0)
             mockAPI = MockLoginAPI(scheduler)
-            sut = LoginViewModel(apiClient: mockAPI)
+            router = scheduler.createObserver(Navigation.self)
+            sut = LoginViewModel(apiClient: mockAPI, router: router.asObserver())
         }
         afterEach {
             sut = nil
@@ -105,10 +108,20 @@ class LoginViewModelSpecs: QuickSpec {
             }
             it("show none, if successful") {
                 mockAPI.loginEvents = [next(0, "")]
+                mockAPI.userEvents = [next(0, User(id: "user-id", email: "user@email.com", avatarURL: nil))]
                 scheduler.drive(sut.login, with: [next(5, ())])
                 scheduler.start()
                 expect(message.lastElement) == ""
             }
+        }
+        it("navigate to profile with logged in user") {
+            let user = User(id: "user-id", email: "user@email.com", avatarURL: nil)
+            mockAPI.loginEvents = [next(0, "")]
+            mockAPI.userEvents = [next(0, user)]
+            set(email: "user@email.com", password: "password")
+            scheduler.drive(sut.login, with: [next(5, ())])
+            scheduler.start()
+            expect(router.lastElement) == Navigation.profile(user: user)
         }
     }
     
@@ -128,9 +141,10 @@ class LoginViewModelSpecs: QuickSpec {
         }
         
         var queriedUser: String?
+        var userEvents: [Recorded<Event<User>>] = []
         func user(id: String) -> Observable<User> {
             queriedUser = id
-            return Observable.empty()
+            return scheduler.createColdObservable(userEvents).asObservable()
         }
     }
 }

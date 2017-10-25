@@ -9,6 +9,9 @@
 import UIKit
 import RxSwift
 import RxCocoa
+
+typealias Navigation = AppDelegate.NavigationEvent
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -17,6 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     enum NavigationEvent {
         case login
+        case profile(user: User)
     }
     private let _router = PublishSubject<NavigationEvent>()
     
@@ -36,9 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .map {event -> UIViewController in
                 switch event {
                 case .login:
-                    let loginViewModel = LoginViewModel(apiClient: APIClient.instance)
+                    let loginViewModel = LoginViewModel(apiClient: APIClient.instance,
+                                                        router: self.router)
                     let loginViewController = LoginViewController(viewModel: loginViewModel)
                     return loginViewController
+                case .profile:
+                    let profileViewModel = ProfileViewModel()
+                    let profileViewController = ProfileViewController(viewModel: profileViewModel)
+                    return profileViewController
                 }
         }
             .subscribe(onNext: {

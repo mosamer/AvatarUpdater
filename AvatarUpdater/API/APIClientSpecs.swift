@@ -109,7 +109,7 @@ class APIClientSpecs: QuickSpec {
                 return ["api-call": loginCall]
             }
         }
-        fdescribe("User Details") {
+        describe("User Details") {
             describe("building request") {
                 beforeEach {
                     mockStore.token = "any-token"

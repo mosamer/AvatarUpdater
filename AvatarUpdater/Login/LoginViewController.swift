@@ -52,6 +52,8 @@ class LoginViewController: UIViewController {
         viewModel.isLoginEnabled.drive(login.rx.isEnabled).disposed(by: bag)
         viewModel.isLoading.drive(loading.rx.isAnimating).disposed(by: bag)
         login.rx.tap.bind(to: viewModel.login).disposed(by: bag)
+        
+        viewModel.errorMessage.drive(error.rx.text).disposed(by: bag)
     }
 
 }
