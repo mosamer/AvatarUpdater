@@ -14,7 +14,9 @@ protocol ProfileViewModelType {
 }
 
 class ProfileViewController: UIViewController {
-
+    @IBOutlet private weak var avatar: UIImageView!
+    @IBOutlet private weak var email: UILabel!
+    
     private let viewModel: ProfileViewModelType
     init(viewModel: ProfileViewModelType) {
         self.viewModel = viewModel
