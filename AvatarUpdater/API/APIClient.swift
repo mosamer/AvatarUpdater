@@ -47,12 +47,66 @@ extension URLSession: NetworkService {
 }
 
 //MARK:- APIClient
+/// HTTP method
+///
+/// - GET: GET request
+/// - POST: POST request
+enum HTTPMethod: String {
+    case GET, POST
+}
+
+/// A type representing an API endpoint.
+///
+/// Endpoint provides 1-to-1 mapping with API endpoints defining required attributes to setup `URLRequest` and how to parse response
+protocol Endpoint {
+    /// Response type
+    associatedtype Response
+    /// URL path
+    var path: String { get }
+    /// HTTP method
+    var method: HTTPMethod { get }
+    /// request parameters if any
+    var parameters: [String: Encodable]? { get }
+    /// Parse returned response data into defined response type
+    ///
+    /// - Parameter data: URL response data
+    /// - Returns: Parsed response object
+    /// - Throws: noResponse, if no data was returned
+    /// - Throws: misformattedResponse, if unable to parse returned JSON
+    func parse(_ data: Data) throws -> Response
+}
+
 class APIClient {
+    enum Error: Swift.Error {
+        case noResponse
+        case misformattedResponse
+    }
+    
     static let instance = APIClient(network: URLSession.shared,
                                     store: UserDefaults.standard)
-
+    private static let baseURL = URL(string: "http://localhost:3000")!
+    
+    private let network: NetworkService
     init(network: NetworkService, store: TokenStore) {
-
+        self.network = network
+    }
+    
+    private func request<E: Endpoint>(_ endpoint: E) -> Observable<E.Response> {
+        return Observable
+            .deferred { () -> Observable<URLRequest> in
+                var request = URLRequest(url: APIClient.baseURL.appendingPathComponent(endpoint.path))
+                request.httpMethod = endpoint.method.rawValue
+                let jsonEncoder = JSONEncoder()
+                request.httpBody = try jsonEncoder.encode(endpoint.parameters)
+                return Observable.of(request)
+            }
+            .flatMap {[unowned self] in
+                self.network.request($0)
+            }
+            .map {data -> E.Response in
+                guard data.count > 0 else { throw Error.noResponse }
+                return try endpoint.parse(data)
+        }
     }
 }
 
