@@ -181,7 +181,11 @@ private func match(parameters expectedValue: [String: Any]?) -> Predicate<MockNe
             return PredicateResult(bool: expectedValue == nil, message: .expectedActualValueTo("nil"))
         }
         let actualParameters = try? JSONSerialization.jsonObject(with: data, options: .allowFragments) as! NSDictionary
-        return PredicateResult(bool: actualParameters?.isEqual(to: expectedValue ?? [:]) ?? false,
+        guard let expectedParameters = expectedValue else {
+            return PredicateResult(bool: false, message: .fail("expected no params"))
+        }
+        
+        return PredicateResult(bool: actualParameters?.isEqual(to: expectedParameters) ?? false,
                                message: .expectedActualValueTo(""))
     }
 }
