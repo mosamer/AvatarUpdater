@@ -25,7 +25,7 @@ class LoginViewModelSpecs: QuickSpec {
             scheduler = TestScheduler(initialClock: 0)
             mockAPI = MockLoginAPI(scheduler)
             router = scheduler.createObserver(Navigation.self)
-            sut = LoginViewModel(apiClient: mockAPI, router: router.asObserver())
+            sut = LoginViewModel(apiClient: mockAPI, router: router.asObserver(), userUpdater: {_ in})
         }
         afterEach {
             sut = nil

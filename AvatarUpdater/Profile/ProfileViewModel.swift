@@ -19,14 +19,15 @@ protocol ProfileAPI {
 }
 class ProfileViewModel: ProfileViewModelType {
 
+    private let user: User
     init(user: User, api: ProfileAPI) {
-
+        self.user = user
     }
     
     var userAvatar: Driver<UIImage> {
         return Driver.empty()
     }
     var userEmail: Driver<String> {
-        return Driver.empty()
+        return Driver.just(user).map { $0.email }
     }
 }

@@ -5,6 +5,8 @@
 //  Created by Mostafa Amer on 25.10.17.
 //  Copyright © 2017 Mostafa Amer. All rights reserved.
 //
+
+import Foundation
 @testable import AvatarUpdater
 
 struct AnyError: Swift.Error, Equatable {
@@ -19,6 +21,13 @@ struct AnyError: Swift.Error, Equatable {
 }
 
 extension User: Equatable {
+    init(id: String = "user-id",
+         email: String = "user@email.com",
+         avatarURL: URL? = nil) {
+        self.id = id
+        self.email = email
+        self.avatarURL = avatarURL
+    }
     public static func ==(lhs: User, rhs: User) -> Bool {
         return lhs.id == rhs.id &&
             lhs.email == rhs.email &&
