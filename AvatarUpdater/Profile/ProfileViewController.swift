@@ -44,11 +44,22 @@ class ProfileViewController: UIViewController {
         let tap = UITapGestureRecognizer()
         avatar.addGestureRecognizer(tap)
 
+        func showImagePicker(from source: UIImagePickerControllerSourceType) {
+            let picker = UIImagePickerController()
+            picker.sourceType = source
+            picker.allowsEditing = false
+            if case .camera = source {
+                picker.cameraDevice = .front
+                picker.cameraCaptureMode = .photo
+            }
+            self.present(picker, animated: true, completion: nil)
+        }
+        
         tap
             .rx.event
             .map {_ -> [UIAlertAction] in
-                let library = UIAlertAction(title: "Photo Library", style: .default) {_ in}
-                let camera = UIAlertAction(title: "Front Camera", style: .default) {_ in}
+                let library = UIAlertAction(title: "Photo Library", style: .default) {_ in showImagePicker(from: .photoLibrary)}
+                let camera = UIAlertAction(title: "Front Camera", style: .default) {_ in showImagePicker(from: .camera)}
                 camera.isEnabled = UIImagePickerController.isCameraDeviceAvailable(.front)
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 return [library, camera, cancel]
