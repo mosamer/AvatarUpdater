@@ -37,6 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigation.setNavigationBarHidden(true, animated: false)
         
         _router
+            .observeOn(MainScheduler.instance)
             .map {event -> UIViewController in
                 switch event {
                 case .login:
