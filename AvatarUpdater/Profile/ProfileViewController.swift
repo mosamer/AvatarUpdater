@@ -49,6 +49,7 @@ class ProfileViewController: UIViewController {
             .map {_ -> [UIAlertAction] in
                 let library = UIAlertAction(title: "Photo Library", style: .default) {_ in}
                 let camera = UIAlertAction(title: "Front Camera", style: .default) {_ in}
+                camera.isEnabled = UIImagePickerController.isCameraDeviceAvailable(.front)
                 let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
                 return [library, camera, cancel]
             }
