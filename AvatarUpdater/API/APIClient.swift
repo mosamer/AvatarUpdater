@@ -97,11 +97,14 @@ class APIClient {
     
     private func request<E: Endpoint>(_ endpoint: E) -> Observable<E.Response> {
         return Observable
-            .deferred { () -> Observable<URLRequest> in
+            .deferred {[weak self] () -> Observable<URLRequest> in
                 var request = URLRequest(url: APIClient.baseURL.appendingPathComponent(endpoint.path))
                 request.httpMethod = endpoint.method.rawValue
                 request.httpBody = try JSONSerialization.data(withJSONObject: endpoint.parameters ?? [:],
                                                               options: .prettyPrinted)
+                if let token = self?.store.token {
+                    request.allHTTPHeaderFields = ["Bearer": token]
+                }
                 return Observable.of(request)
             }
             .flatMap {[unowned self] in
@@ -125,6 +128,7 @@ extension APIClient: LoginAPI {
     }
     
     func user(id: String) -> Observable<User> {
-        return Observable.empty()
+        let endpoint = UserEndpoint(userId: id)
+        return self.request(endpoint)
     }
 }
