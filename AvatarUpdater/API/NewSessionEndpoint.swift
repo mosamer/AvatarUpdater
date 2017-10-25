@@ -33,7 +33,7 @@ struct NewSessionEndpoint: Endpoint {
     
     func parse(_ data: Data) throws -> (userId: String, token: String) {
         let decoder = JSONDecoder()
-        let response = try decoder.decode(Session.self, from: data)
+        guard let response = try? decoder.decode(Session.self, from: data) else { throw APIClient.Error.misformattedResponse }
         return (userId: response.user_id, token: response.token)
     }
 }

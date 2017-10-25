@@ -71,6 +71,28 @@ class APIClientSpecs: QuickSpec {
                     expect(mockStore.updatedToken) == "abcdef"
                 }
             }
+            it("error if no response") {
+                mockNetwork.responseEvents = [next(0, Data())]
+                let response = scheduler.record(source: sut.login(email: "user@email.com", password: "password"))
+                scheduler.start()
+                let error = response.events.first?.value.error
+                expect(error).to(matchError(APIClient.Error.noResponse))
+            }
+            it("error, if misformatted response") {
+                let data = try! JSONSerialization.data(withJSONObject: ["foo": "bar"], options: .prettyPrinted)
+                mockNetwork.responseEvents = [next(0, data)]
+                let response = scheduler.record(source: sut.login(email: "user@email.com", password: "password"))
+                scheduler.start()
+                let error = response.events.first?.value.error
+                expect(error).to(matchError(APIClient.Error.misformattedResponse))
+            }
+            it("error, if network error") {
+                mockNetwork.responseEvents = [error(0, AnyError("network-error"))]
+                let response = scheduler.record(source: sut.login(email: "user@email.com", password: "password"))
+                scheduler.start()
+                let _error = response.events.first?.value.error
+                expect(_error).to(matchError(AnyError("network-error")))
+            }
         }
     }
     
