@@ -155,6 +155,15 @@ class APIClientSpecs: QuickSpec {
                 }
             }
         }
+        describe("fetch image") {
+            it("fetch content from url") {
+                let url = "http://localhost:3000/avatar.png"
+                _ = scheduler.record(source: sut.image(from: URL(string: url)!))
+                scheduler.start()
+                let actualURL = mockNetwork.sentRequest?.url?.absoluteString
+                expect(actualURL) == url
+            }
+        }
     }
     
 }

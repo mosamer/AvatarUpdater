@@ -137,6 +137,13 @@ extension APIClient: LoginAPI {
 
 extension APIClient: ProfileAPI {
     func image(from url: URL) -> Observable<UIImage> {
-        return Observable.empty()
+        return network
+            .request(URLRequest(url: url))
+            .map {
+                guard let image = UIImage(data: $0) else {
+                    throw Error.noResponse
+                }
+                return image
+        }
     }
 }

@@ -38,6 +38,44 @@ class ProfileViewModelSpecs: QuickSpec {
                 }
             }
         }
+        describe("avatar image") {
+            var image: TestableObserver<UIImage>!
+            afterEach {
+                image = nil
+            }
+
+            it("do not fetch, if url is nil") {
+                sut = ProfileViewModel(user: User(), api: mockAPI)
+                SharingScheduler.mock(scheduler: scheduler) {
+                    image = scheduler.record(source: sut.userAvatar)
+                }
+                scheduler.start()
+                expect(image.firstElement) == #imageLiteral(resourceName: "default_avatar")
+                expect(mockAPI.imageURL).to(beNil())
+            }
+            it("fetch image from API") {
+                let url = "http://localhost:3000/avatar.png"
+                mockAPI.imageEvents = [next(0, #imageLiteral(resourceName: "alt_default_avatar"))]
+                sut = ProfileViewModel(user: User(avatarURL: URL(string: url)), api: mockAPI)
+                SharingScheduler.mock(scheduler: scheduler) {
+                    image = scheduler.record(source: sut.userAvatar)
+                }
+                scheduler.start()
+                expect(image.firstElement) == #imageLiteral(resourceName: "alt_default_avatar")
+                expect(mockAPI.imageURL) == url
+            }
+            it("show default, if error while fetching from API") {
+                let url = "http://localhost:3000/avatar.png"
+                mockAPI.imageEvents = [error(0, AnyError())]
+                sut = ProfileViewModel(user: User(avatarURL: URL(string: url)), api: mockAPI)
+                SharingScheduler.mock(scheduler: scheduler) {
+                    image = scheduler.record(source: sut.userAvatar)
+                }
+                scheduler.start()
+                expect(image.firstElement) == #imageLiteral(resourceName: "default_avatar")
+                expect(mockAPI.imageURL) == url
+            }
+        }
     }
 
     private class MockProfileAPI: ProfileAPI {
@@ -46,8 +84,11 @@ class ProfileViewModelSpecs: QuickSpec {
             self.scheduler = scheduler
         }
 
+        var imageURL: String?
+        var imageEvents: [Recorded<Event<UIImage>>] = []
         func image(from url: URL) -> Observable<UIImage> {
-            return Observable.empty()
+            self.imageURL = url.absoluteString
+            return scheduler.createColdObservable(imageEvents).asObservable()
         }
     }
 }
