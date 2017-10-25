@@ -1,3 +1,4 @@
+
 //
 //  APIClient.swift
 //  AvatarUpdater
@@ -66,7 +67,7 @@ protocol Endpoint {
     /// HTTP method
     var method: HTTPMethod { get }
     /// request parameters if any
-    var parameters: [String: Encodable]? { get }
+    var parameters: [String: Any]? { get }
     /// Parse returned response data into defined response type
     ///
     /// - Parameter data: URL response data
@@ -87,6 +88,7 @@ class APIClient {
     private static let baseURL = URL(string: "http://localhost:3000")!
     
     private let network: NetworkService
+
     init(network: NetworkService, store: TokenStore) {
         self.network = network
     }
@@ -96,8 +98,8 @@ class APIClient {
             .deferred { () -> Observable<URLRequest> in
                 var request = URLRequest(url: APIClient.baseURL.appendingPathComponent(endpoint.path))
                 request.httpMethod = endpoint.method.rawValue
-                let jsonEncoder = JSONEncoder()
-                request.httpBody = try jsonEncoder.encode(endpoint.parameters)
+                request.httpBody = try JSONSerialization.data(withJSONObject: endpoint.parameters ?? [:],
+                                                              options: .prettyPrinted)
                 return Observable.of(request)
             }
             .flatMap {[unowned self] in
@@ -112,6 +114,7 @@ class APIClient {
 
 extension APIClient: LoginAPI {
     func login(email: String, password: String) -> Observable<String> {
-        return Observable.empty()
+        let endpoint = NewSessionEndpoint(email: email, password: password)
+        return self.request(endpoint).map { $0.userId }
     }
 }
