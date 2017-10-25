@@ -41,9 +41,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             .map {event -> UIViewController in
                 switch event {
                 case .login:
-                    let loginViewModel = LoginViewModel(apiClient: APIClient.instance,
-                                                        router: self.router,
-                                                        userUpdater: {_ in})
+                    let loginViewModel = LoginViewModel(
+                        apiClient: APIClient.instance,
+                        router: self.router,
+                        userUpdater: {
+                            let encoder = JSONEncoder()
+                            let data = try? encoder.encode($0)
+                            UserDefaults.standard.set(data, forKey: "com.mosamer.AvatarUpdater:User")
+                            UserDefaults.standard.synchronize()
+                    })
                     let loginViewController = LoginViewController(viewModel: loginViewModel)
                     return loginViewController
                 case .profile:
@@ -51,13 +57,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let profileViewController = ProfileViewController(viewModel: profileViewModel)
                     return profileViewController
                 }
-        }
+            }
             .subscribe(onNext: {
                 /* a hack to animate pushing, this is not a real router ¯\_(ツ)_/¯ */
                 navigation.pushViewController($0, animated: true)
                 navigation.setViewControllers([$0], animated: false)
             })
-        .disposed(by: bag)
+            .disposed(by: bag)
         
         self.window?.rootViewController = navigation
         
