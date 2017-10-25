@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct User {
+struct User: Codable {
     let id: String
     let email: String
     let avatarURL: URL?

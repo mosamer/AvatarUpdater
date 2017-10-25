@@ -36,13 +36,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let navigation = UINavigationController()
         navigation.setNavigationBarHidden(true, animated: false)
         
+        let userKey = "com.mosamer.AvatarUpdater:User"
         _router
             .observeOn(MainScheduler.instance)
             .map {event -> UIViewController in
                 switch event {
                 case .login:
-                    let loginViewModel = LoginViewModel(apiClient: APIClient.instance,
-                                                        router: self.router)
+                    let loginViewModel = LoginViewModel(
+                        apiClient: APIClient.instance,
+                        router: self.router,
+                        userUpdater: {
+                            let encoder = JSONEncoder()
+                            let data = try? encoder.encode($0)
+                            UserDefaults.standard.set(data, forKey: userKey)
+                            UserDefaults.standard.synchronize()
+                    })
                     let loginViewController = LoginViewController(viewModel: loginViewModel)
                     return loginViewController
                 case .profile:
@@ -50,17 +58,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let profileViewController = ProfileViewController(viewModel: profileViewModel)
                     return profileViewController
                 }
-        }
+            }
             .subscribe(onNext: {
                 /* a hack to animate pushing, this is not a real router ¯\_(ツ)_/¯ */
                 navigation.pushViewController($0, animated: true)
                 navigation.setViewControllers([$0], animated: false)
             })
-        .disposed(by: bag)
+            .disposed(by: bag)
         
         self.window?.rootViewController = navigation
         
-        _router.onNext(.login)
+        let decoder = JSONDecoder()
+        if let data = UserDefaults.standard.data(forKey: userKey),
+            let user = try? decoder.decode(User.self, from: data) {
+            _router.onNext(.profile(user: user))
+        } else {
+            _router.onNext(.login)
+        }
         return true
     }
     
