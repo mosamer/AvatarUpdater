@@ -106,9 +106,9 @@ class LoginViewModelSpecs: QuickSpec {
                 scheduler.start()
                 expect(message.lastElement) == "Something went wrong. Try Again!"
             }
-            it("show none, if successful") {
-                mockAPI.loginEvents = [next(0, "")]
-                mockAPI.userEvents = [next(0, User(id: "user-id", email: "user@email.com", avatarURL: nil))]
+            it("show none, when new request start") {
+                mockAPI.loginEvents = []
+                mockAPI.userEvents = []
                 scheduler.drive(sut.login, with: [next(5, ())])
                 scheduler.start()
                 expect(message.lastElement) == ""

@@ -81,13 +81,13 @@ class LoginViewModel: LoginViewModelType {
         return loginAction.executing.asDriver(onErrorJustReturn: false)
     }
     var errorMessage: Driver<String> {
-        let succ = loginAction.elements.map {_ in ""}
+        let start = loginAction.inputs.map {_ in ""}
         let fail = loginAction
             .errors
             .map {error -> String in
                 guard error.is(APIClient.Error.noResponse) else { return "Something went wrong. Try Again!" }
                 return "Wrong email or password"
         }
-        return Observable.merge([succ, fail]).distinctUntilChanged().asDriver(onErrorJustReturn: "")
+        return Observable.merge([start, fail]).distinctUntilChanged().asDriver(onErrorJustReturn: "")
     }
 }
