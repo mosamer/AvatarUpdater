@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.window = UIWindow(frame: UIScreen.main.bounds)
         self.window?.makeKeyAndVisible()
 
-        let loginViewModel = LoginViewModel()
+        let loginViewModel = LoginViewModel(apiClient: APIClient.instance)
         let loginViewController = LoginViewController(viewModel: loginViewModel)
         self.window?.rootViewController = loginViewController
         
