@@ -123,4 +123,8 @@ extension APIClient: LoginAPI {
             })
             .map { $0.userId }
     }
+    
+    func user(id: String) -> Observable<User> {
+        return Observable.empty()
+    }
 }

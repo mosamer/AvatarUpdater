@@ -19,6 +19,11 @@ protocol LoginAPI {
     ///   - password: User password
     /// - Returns: Logged-in user ID.
     func login(email: String, password: String) -> Observable<String>
+    /// Fetch user details
+    ///
+    /// - Parameter id: user Id
+    /// - Returns: requested user profile details
+    func user(id: String) -> Observable<User>
 }
 
 class LoginViewModel: LoginViewModelType {
@@ -26,11 +31,13 @@ class LoginViewModel: LoginViewModelType {
     private let _email = PublishSubject<String>()
     private let _password = PublishSubject<String>()
     typealias Credintials = (email: String, password: String)
-    private let loginAction: Action<Credintials, String>
+    private let loginAction: Action<Credintials, User>
     private let bag = DisposeBag()
     init(apiClient: LoginAPI) {
         loginAction = Action {
-            apiClient.login(email: $0.email, password: $0.password)
+            apiClient
+                .login(email: $0.email, password: $0.password)
+                .flatMapLatest { apiClient.user(id: $0) }
         }
         
         let credentials = Observable.combineLatest(_email, _password) { (email: $0, password: $1) }
