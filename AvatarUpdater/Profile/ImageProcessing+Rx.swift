@@ -45,15 +45,46 @@ extension ObserverType where E == ImageCropInfo {
     /// Adjust crop rect to maintain original image aspect ratio while center around square
     func adjustCentering() -> AnyObserver<ImageCropInfo> {
         return mapObserver {(original: UIImage, faceRect: CGRect) -> ImageCropInfo in
-            let adjustCropRect = faceRect
-            return (original: original, rect: adjustCropRect)
+            func squareAroundCenter(rect: CGRect) -> CGRect {
+                let newEdge = max(rect.width, rect.height)
+                let dw = (newEdge - rect.width) / 2.0
+                let dh = (newEdge - rect.height) / 2.0
+                return CGRect(x: rect.minX - dw,
+                              y: rect.minY - dh,
+                              width: newEdge,
+                              height: newEdge)
+            }
+            func center(_ square: CGRect, inside bounds: CGSize) -> CGRect {
+                var rect = square
+                if rect.minX < 0 {
+                    let c = 0 - rect.minX
+                    rect = CGRect(x: 0, y: rect.minY + c, width: rect.width - (2*c), height: rect.height - (2*c))
+                }
+
+                if rect.maxX > bounds.width {
+                    let c = rect.maxX - bounds.width
+                    rect = CGRect(x: rect.minX + (2*c), y: rect.minY + c, width: rect.width - (2*c), height: rect.height - (2*c))
+                }
+                if rect.minY < 0 {
+                    let c = 0 - rect.minY
+                    rect = CGRect(x: rect.minX + c, y: 0, width: rect.width - (2*c), height: rect.height - (2*c))
+                }
+                if rect.maxY > bounds.height {
+                    let c = rect.maxY - bounds.height
+                    rect = CGRect(x: rect.minX + c, y: rect.minY + (2*c), width: rect.width - (2*c), height: rect.height - (2*c))
+                }
+                return rect
+            }
+            let square = squareAroundCenter(rect: faceRect)
+            return (original: original,
+                    rect: center(square, inside: original.size))
         }
     }
 
     /// Detect face in given image. If none, return full image
     func detectFace() -> AnyObserver<UIImage> {
         return mapObserver {(original: UIImage) -> ImageCropInfo in
-            let faceRect = CGRect.zero
+            let faceRect = CGRect(x: 0.0, y: 0.0, width: original.size.width, height: original.size.height)
             return (original: original, rect: faceRect)
         }
     }
