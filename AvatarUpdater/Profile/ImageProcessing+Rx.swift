@@ -36,8 +36,8 @@ extension ObserverType where E == UIImage {
     /// Crop image
     func crop() -> AnyObserver<ImageCropInfo> {
         return mapObserver {(original: UIImage, cropRect: CGRect) -> UIImage in
-            let croppedImage = original
-            return croppedImage
+            guard let croppedImage = original.cgImage?.cropping(to: cropRect) else { return original }
+            return UIImage(cgImage: croppedImage)
         }
     }
 }
