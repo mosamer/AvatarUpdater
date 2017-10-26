@@ -57,14 +57,24 @@ class ProfileViewModel: ProfileViewModelType {
             }
             .asDriver(onErrorJustReturn: #imageLiteral(resourceName: "default_avatar"))
 
-        let picked = _pickedImage.asDriver(onErrorJustReturn: #imageLiteral(resourceName: "default_avatar"))
+        let picked = _pickedImage
+            .asDriver(onErrorJustReturn: #imageLiteral(resourceName: "default_avatar"))
         return Driver.merge([fetched, picked]).distinctUntilChanged()
     }
     var userEmail: Driver<String> {
         return Driver.just(user).map { $0.email }
     }
     private let _pickedImage = PublishSubject<UIImage>()
-    var pickedImage: AnyObserver<UIImage> { return _pickedImage.asObserver()}
+    var pickedImage: AnyObserver<UIImage> {
+        // Chain order is backward as it map observers
+        return _pickedImage.asObserver()
+            .apply(filter: CIFilter(name: "CISepiaTone")!)
+            .resize(to: CGSize(width: 120.0, height: 120.0))
+            .crop()
+            .adjustCentering()
+            .detectFace()
+        // picked image will get into detectFace() and move upward to _pickedImage ;)
+    }
 
     var isLoading: Driver<Bool> {
         return uploadAction.executing.asDriver(onErrorJustReturn: false)
