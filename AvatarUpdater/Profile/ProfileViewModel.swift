@@ -29,13 +29,21 @@ class ProfileViewModel: ProfileViewModelType {
     private let api: ProfileAPI
     private let uploadAction: Action<UIImage, URL>
     private let bag = DisposeBag()
-    init(user: User, api: ProfileAPI) {
+    init(user: User, api: ProfileAPI, updater: @escaping UserUpdater) {
         self.user = user
         self.api = api
         uploadAction = Action {image in
             api.upload(avatar: image)
         }
-        _pickedImage.bind(to: uploadAction.inputs).disposed(by: bag)
+        _pickedImage
+            .bind(to: uploadAction.inputs)
+            .disposed(by: bag)
+
+        uploadAction
+            .elements
+            .map { user.updatingAvatarURL($0)}
+            .subscribe(onNext: updater)
+            .disposed(by: bag)
     }
     
     var userAvatar: Driver<UIImage> {

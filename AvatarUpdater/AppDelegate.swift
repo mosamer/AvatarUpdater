@@ -56,7 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     return loginViewController
                 case .profile(let user):
                     let profileViewModel = ProfileViewModel(user: user,
-                                                            api: APIClient.instance)
+                                                            api: APIClient.instance,
+                                                            updater: userUpdater)
                     let profileViewController = ProfileViewController(viewModel: profileViewModel)
                     return profileViewController
                 }
