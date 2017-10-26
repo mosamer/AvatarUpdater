@@ -18,12 +18,15 @@ protocol ProfileViewModelType {
     var userEmail: Driver<String> { get }
     /// Bindable sink for picked image
     var pickedImage: AnyObserver<UIImage> { get }
+    /// Indicate whether uploading avatar is in progress
+    var isLoading: Driver<Bool> { get }
 }
 
 class ProfileViewController: UIViewController {
     @IBOutlet private weak var avatar: UIImageView!
     @IBOutlet private weak var email: UILabel!
-    
+    @IBOutlet private weak var spinner: UIActivityIndicatorView!
+
     private let viewModel: ProfileViewModelType
     private let bag = DisposeBag()
     init(viewModel: ProfileViewModelType) {
@@ -42,7 +45,8 @@ class ProfileViewController: UIViewController {
 
         viewModel.userAvatar.drive(avatar.rx.image).disposed(by: bag)
         viewModel.userEmail.drive(email.rx.text).disposed(by: bag)
-
+        viewModel.isLoading.drive(spinner.rx.isAnimating).disposed(by: bag)
+        
         let tap = UITapGestureRecognizer()
         avatar.addGestureRecognizer(tap)
 

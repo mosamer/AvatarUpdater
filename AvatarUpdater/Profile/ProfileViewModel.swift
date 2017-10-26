@@ -65,4 +65,8 @@ class ProfileViewModel: ProfileViewModelType {
     }
     private let _pickedImage = PublishSubject<UIImage>()
     var pickedImage: AnyObserver<UIImage> { return _pickedImage.asObserver()}
+
+    var isLoading: Driver<Bool> {
+        return uploadAction.executing.asDriver(onErrorJustReturn: false)
+    }
 }
