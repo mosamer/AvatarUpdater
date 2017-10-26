@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 typealias Navigation = AppDelegate.NavigationEvent
-
+typealias UserUpdater = (User) -> Void
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
@@ -37,6 +37,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         navigation.setNavigationBarHidden(true, animated: false)
         
         let userKey = "com.mosamer.AvatarUpdater:User"
+        let userUpdater: (User) -> Void = {
+            let encoder = JSONEncoder()
+            let data = try? encoder.encode($0)
+            UserDefaults.standard.set(data, forKey: userKey)
+            UserDefaults.standard.synchronize()
+        }
         _router
             .observeOn(MainScheduler.instance)
             .map {event -> UIViewController in
@@ -45,12 +51,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     let loginViewModel = LoginViewModel(
                         apiClient: APIClient.instance,
                         router: self.router,
-                        userUpdater: {
-                            let encoder = JSONEncoder()
-                            let data = try? encoder.encode($0)
-                            UserDefaults.standard.set(data, forKey: userKey)
-                            UserDefaults.standard.synchronize()
-                    })
+                        userUpdater: userUpdater)
                     let loginViewController = LoginViewController(viewModel: loginViewModel)
                     return loginViewController
                 case .profile(let user):
