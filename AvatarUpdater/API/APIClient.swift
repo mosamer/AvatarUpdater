@@ -147,6 +147,7 @@ extension APIClient: ProfileAPI {
         }
     }
     func upload(avatar image: UIImage, for user: User) -> Observable<URL> {
-        return Observable.empty()
+        let endpoint = UpdateAvatarEndpoint(userId: user.id, avatar: image)
+        return request(endpoint)
     }
 }
