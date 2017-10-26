@@ -164,6 +164,51 @@ class APIClientSpecs: QuickSpec {
                 expect(actualURL) == url
             }
         }
+        describe("upload avatar") {
+            describe("building request") {
+                beforeEach {
+                    mockStore.token = "any-token"
+                    _ = scheduler.record(source: sut.upload(avatar: #imageLiteral(resourceName: "default_avatar"), for: User(id: "user-id")))
+                }
+                it("path") {
+                    scheduler.start()
+                    expect(mockNetwork).to(match(path: "user/user-id/avatar"))
+                }
+                it("method") {
+                    scheduler.start()
+                    expect(mockNetwork).to(match(method: .POST))
+                }
+                it("parameters") {
+                    scheduler.start()
+                    let data = UIImageJPEGRepresentation(#imageLiteral(resourceName: "default_avatar"), 1.0)!
+                    let params = ["avatar": data.base64EncodedString()]
+                    expect(mockNetwork).to(match(parameters: params))
+                }
+                it("bearer") {
+                    scheduler.start()
+                    expect(mockNetwork).to(match(token: "any-token"))
+                }
+            }
+            describe("parse response") {
+                var response: TestableObserver<URL>!
+                beforeEach {
+                    let data = try! JSONSerialization.data(withJSONObject: ["avatar_url": "http://localhost:3000/avatar.png"], options: .prettyPrinted)
+                    mockNetwork.responseEvents = [next(0, data)]
+                    response = scheduler.record(source: sut.upload(avatar: #imageLiteral(resourceName: "default_avatar"), for: User()))
+                }
+                afterEach {
+                    response = nil
+                }
+                it("parse correct user") {
+                    scheduler.start()
+                    expect(response.lastElement) == URL(string: "http://localhost:3000/avatar.png")
+                }
+                itBehavesLike("endpoint error handling") {
+                    let userCall: () -> Observable<Void> = { sut.user(id: "user-id").map {_ in} }
+                    return ["api-call": userCall]
+                }
+            }
+        }
     }
     
 }

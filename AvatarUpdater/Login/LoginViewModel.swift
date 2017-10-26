@@ -36,7 +36,7 @@ class LoginViewModel: LoginViewModelType {
     
     init(apiClient: LoginAPI,
          router: AnyObserver<Navigation>,
-         userUpdater: @escaping (User) -> Void
+         userUpdater: @escaping UserUpdater
         ) {
         loginAction = Action {
             apiClient

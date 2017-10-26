@@ -16,6 +16,7 @@
 		CE7667DE1FA0DD10004C30A9 /* Error+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667DD1FA0DD10004C30A9 /* Error+Ext.swift */; };
 		CE7667EA1FA0E638004C30A9 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667E91FA0E638004C30A9 /* User.swift */; };
 		CE7667EC1FA0E857004C30A9 /* UserEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */; };
+		CE95A1FE1FA1B388009291F9 /* UpdateAvatarEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE95A1FD1FA1B388009291F9 /* UpdateAvatarEndpoint.swift */; };
 		CE9DA00F1F9F9D7400CC593A /* TestScheduler+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */; };
 		CE9DA0111F9F9F1700CC593A /* TestableObserver+Ext.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */; };
 		CE9DA0131F9F9F3E00CC593A /* LoginViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */; };
@@ -55,6 +56,7 @@
 		CE7667DD1FA0DD10004C30A9 /* Error+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Error+Ext.swift"; sourceTree = "<group>"; };
 		CE7667E91FA0E638004C30A9 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserEndpoint.swift; sourceTree = "<group>"; };
+		CE95A1FD1FA1B388009291F9 /* UpdateAvatarEndpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAvatarEndpoint.swift; sourceTree = "<group>"; };
 		CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestScheduler+Ext.swift"; sourceTree = "<group>"; };
 		CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TestableObserver+Ext.swift"; sourceTree = "<group>"; };
 		CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelSpecs.swift; sourceTree = "<group>"; };
@@ -184,6 +186,7 @@
 				CE31783E1FA07E580021102F /* APIClientSpecs.swift */,
 				CE7667DB1FA0C884004C30A9 /* NewSessionEndpoint.swift */,
 				CE7667EB1FA0E857004C30A9 /* UserEndpoint.swift */,
+				CE95A1FD1FA1B388009291F9 /* UpdateAvatarEndpoint.swift */,
 			);
 			path = API;
 			sourceTree = "<group>";
@@ -437,6 +440,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE95A1FE1FA1B388009291F9 /* UpdateAvatarEndpoint.swift in Sources */,
 				CEF73F7C1F9F88AF008D5761 /* APIClient.swift in Sources */,
 				CEF73F881F9F8946008D5761 /* LoginViewModel.swift in Sources */,
 				CE7667DC1FA0C884004C30A9 /* NewSessionEndpoint.swift in Sources */,

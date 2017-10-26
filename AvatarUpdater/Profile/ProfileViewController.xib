@@ -5,7 +5,7 @@
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
             <connections>
                 <outlet property="avatar" destination="dvE-e2-6HA" id="3m0-GO-qWP"/>
                 <outlet property="email" destination="Buw-Sk-ahE" id="n8s-4C-QD0"/>
+                <outlet property="spinner" destination="WvF-nr-d9x" id="RYG-Y8-Gc7"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -22,7 +23,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="dvE-e2-6HA">
+                <imageView contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="default_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="dvE-e2-6HA">
                     <rect key="frame" x="127" y="100" width="120" height="120"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="120" id="PR0-HB-Gl2"/>
@@ -35,12 +36,21 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
+                <activityIndicatorView hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="WvF-nr-d9x">
+                    <rect key="frame" x="177" y="281" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="VpA-y6-sL2"/>
+                        <constraint firstAttribute="height" constant="20" id="q3O-HX-XJD"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
                 <constraint firstItem="dvE-e2-6HA" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="5nq-I3-8lY"/>
                 <constraint firstItem="dvE-e2-6HA" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="80" id="B3O-MN-bm8"/>
+                <constraint firstItem="WvF-nr-d9x" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="BOJ-EC-BKE"/>
                 <constraint firstItem="Buw-Sk-ahE" firstAttribute="top" secondItem="dvE-e2-6HA" secondAttribute="bottom" constant="32" id="oDO-4J-FzL"/>
+                <constraint firstItem="WvF-nr-d9x" firstAttribute="top" secondItem="Buw-Sk-ahE" secondAttribute="bottom" constant="8" id="tuf-zi-sAU"/>
                 <constraint firstItem="Buw-Sk-ahE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="uXy-11-mfG"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
