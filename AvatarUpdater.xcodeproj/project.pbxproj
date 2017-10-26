@@ -22,11 +22,8 @@
 		CE9DA0131F9F9F3E00CC593A /* LoginViewModelSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9DA0121F9F9F3E00CC593A /* LoginViewModelSpecs.swift */; };
 		CEC321291FA1F62D00EFBF26 /* ImageProcessing+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC321281FA1F62D00EFBF26 /* ImageProcessing+Rx.swift */; };
 		CEF73F4B1F9F73EF008D5761 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */; };
-		CEF73F4D1F9F73EF008D5761 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F4C1F9F73EF008D5761 /* ViewController.swift */; };
-		CEF73F501F9F73EF008D5761 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F4E1F9F73EF008D5761 /* Main.storyboard */; };
 		CEF73F521F9F73EF008D5761 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F511F9F73EF008D5761 /* Assets.xcassets */; };
 		CEF73F551F9F73EF008D5761 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F531F9F73EF008D5761 /* LaunchScreen.storyboard */; };
-		CEF73F601F9F73F0008D5761 /* AvatarUpdaterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */; };
 		CEF73F7C1F9F88AF008D5761 /* APIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F7B1F9F88AF008D5761 /* APIClient.swift */; };
 		CEF73F841F9F8930008D5761 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF73F821F9F8930008D5761 /* LoginViewController.swift */; };
 		CEF73F851F9F8930008D5761 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEF73F831F9F8930008D5761 /* LoginViewController.xib */; };
@@ -64,13 +61,10 @@
 		CEC321281FA1F62D00EFBF26 /* ImageProcessing+Rx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ImageProcessing+Rx.swift"; sourceTree = "<group>"; };
 		CEF73F471F9F73EF008D5761 /* AvatarUpdater.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AvatarUpdater.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		CEF73F4C1F9F73EF008D5761 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		CEF73F4F1F9F73EF008D5761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEF73F511F9F73EF008D5761 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF73F541F9F73EF008D5761 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CEF73F561F9F73EF008D5761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF73F5B1F9F73EF008D5761 /* AvatarUpdaterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = AvatarUpdaterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarUpdaterTests.swift; sourceTree = "<group>"; };
 		CEF73F611F9F73F0008D5761 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF73F7B1F9F88AF008D5761 /* APIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIClient.swift; sourceTree = "<group>"; };
 		CEF73F821F9F8930008D5761 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
@@ -156,8 +150,6 @@
 			isa = PBXGroup;
 			children = (
 				CEF73F4A1F9F73EF008D5761 /* AppDelegate.swift */,
-				CEF73F4C1F9F73EF008D5761 /* ViewController.swift */,
-				CEF73F4E1F9F73EF008D5761 /* Main.storyboard */,
 				CEF73F861F9F8935008D5761 /* Login */,
 				CEF73F8B1F9F8966008D5761 /* Profile */,
 				CEF73F781F9F8876008D5761 /* API */,
@@ -172,7 +164,6 @@
 		CEF73F5E1F9F73EF008D5761 /* AvatarUpdaterTests */ = {
 			isa = PBXGroup;
 			children = (
-				CEF73F5F1F9F73F0008D5761 /* AvatarUpdaterTests.swift */,
 				CEF73F611F9F73F0008D5761 /* Info.plist */,
 				CE9DA00E1F9F9D7400CC593A /* TestScheduler+Ext.swift */,
 				CE9DA0101F9F9F1700CC593A /* TestableObserver+Ext.swift */,
@@ -310,7 +301,6 @@
 				CEF73F551F9F73EF008D5761 /* LaunchScreen.storyboard in Resources */,
 				CEF73F521F9F73EF008D5761 /* Assets.xcassets in Resources */,
 				CEF73F8F1F9F897A008D5761 /* ProfileViewController.xib in Resources */,
-				CEF73F501F9F73EF008D5761 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -449,7 +439,6 @@
 				CE7667DC1FA0C884004C30A9 /* NewSessionEndpoint.swift in Sources */,
 				CE7667DE1FA0DD10004C30A9 /* Error+Ext.swift in Sources */,
 				CEC321291FA1F62D00EFBF26 /* ImageProcessing+Rx.swift in Sources */,
-				CEF73F4D1F9F73EF008D5761 /* ViewController.swift in Sources */,
 				CEF73F841F9F8930008D5761 /* LoginViewController.swift in Sources */,
 				CEF73F4B1F9F73EF008D5761 /* AppDelegate.swift in Sources */,
 				CEF73F8E1F9F897A008D5761 /* ProfileViewController.swift in Sources */,
@@ -464,7 +453,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE31783F1FA07E580021102F /* APIClientSpecs.swift in Sources */,
-				CEF73F601F9F73F0008D5761 /* AvatarUpdaterTests.swift in Sources */,
 				CE3178411FA11BAD0021102F /* ProfileViewModelSpecs.swift in Sources */,
 				CE9DA00F1F9F9D7400CC593A /* TestScheduler+Ext.swift in Sources */,
 				CE9DA0111F9F9F1700CC593A /* TestableObserver+Ext.swift in Sources */,
@@ -484,14 +472,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		CEF73F4E1F9F73EF008D5761 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CEF73F4F1F9F73EF008D5761 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		CEF73F531F9F73EF008D5761 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
