@@ -8,6 +8,8 @@
 
 import RxSwift
 import CoreImage
+import CoreGraphics
+
 typealias ImageCropInfo = (original: UIImage, rect: CGRect)
 extension ObserverType where E == UIImage {
     /// Apply monochrome filter to the given image
@@ -93,8 +95,22 @@ extension ObserverType where E == ImageCropInfo {
     /// Detect face in given image. If none, return full image
     func detectFace() -> AnyObserver<UIImage> {
         return mapObserver {(original: UIImage) -> ImageCropInfo in
-            let faceRect = CGRect(x: 0.0, y: 0.0, width: original.size.width, height: original.size.height)
-            return (original: original, rect: faceRect)
+            let fallback = (original: original,
+                            rect: CGRect(origin: CGPoint.zero, size: original.size))
+
+            guard let ciImage = CIImage(image: original) else { return fallback }
+            let faceDetector = CIDetector(ofType: CIDetectorTypeFace,
+                                          context: nil,
+                                          options: [CIDetectorAccuracy: CIDetectorAccuracyHigh])
+
+            guard let face = faceDetector?.features(in: ciImage).first else { return fallback }
+            let imageSize = ciImage.extent.size
+            let transform = CGAffineTransform(scaleX: 1, y: -1).translatedBy(x: 0, y: -imageSize.height)
+            let margin = max(0.1 * face.bounds.width, 0.1 * face.bounds.height)
+            let faceBox = face.bounds.applying(transform).insetBy(dx: -margin, dy: margin)
+
+            return (original: original,
+                    rect: CGRect(x: faceBox.minX - margin, y: faceBox.minY - margin, width: faceBox.width + (2*margin), height: faceBox.height + (2*margin)))
         }
     }
 }
