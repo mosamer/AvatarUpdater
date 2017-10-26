@@ -69,7 +69,7 @@ class ProfileViewModel: ProfileViewModelType {
         // Chain order is backward as it map observers
         return _pickedImage.asObserver()
             .apply(filter: CIFilter(name: "CISepiaTone")!)
-            .resize(to: CGSize(width: 240.0, height: 240.0))
+            .resize(to: CGSize(width: 120.0, height: 120.0))
             .crop()
             .adjustCentering()
             .detectFace()

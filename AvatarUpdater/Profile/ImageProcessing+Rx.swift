@@ -28,7 +28,14 @@ extension ObserverType where E == UIImage {
     /// - Returns: resized image
     func resize(to newSize: CGSize) -> AnyObserver<UIImage> {
         return mapObserver {(croppedImage: UIImage) -> UIImage in
-            let resizedImage = croppedImage
+            defer {
+                UIGraphicsEndImageContext()
+            }
+            UIGraphicsBeginImageContextWithOptions(newSize, true, UIScreen.main.scale)
+            croppedImage.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+            guard let resizedImage = UIGraphicsGetImageFromCurrentImageContext() else {
+                return croppedImage
+            }
             return resizedImage
         }
     }
