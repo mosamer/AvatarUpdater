@@ -85,8 +85,18 @@ class ProfileViewController: UIViewController {
 
 extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        func fixOrientation(_ image: UIImage) -> UIImage {
+            defer {
+                UIGraphicsEndImageContext()
+            }
+            guard image.imageOrientation != .up else { return image }
+            UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
+            image.draw(in: CGRect(origin: CGPoint.zero, size: image.size))
+            guard let normalized = UIGraphicsGetImageFromCurrentImageContext() else { return image }
+            return normalized
+        }
         guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else { return }
-        viewModel.pickedImage.onNext(image)
+        viewModel.pickedImage.onNext(fixOrientation(image))
         picker.dismiss(animated: true, completion: nil)
     }
 }
