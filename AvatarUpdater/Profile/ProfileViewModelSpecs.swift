@@ -93,6 +93,7 @@ class ProfileViewModelSpecs: QuickSpec {
                 scheduler.drive(sut.pickedImage, with: [next(0, #imageLiteral(resourceName: "default_avatar"))])
                 scheduler.start()
                 expect(mockAPI.uploadImage) == #imageLiteral(resourceName: "default_avatar")
+                expect(mockAPI.updateUser) == User()
             }
         }
         it("update user with new URL") {
@@ -121,9 +122,11 @@ class ProfileViewModelSpecs: QuickSpec {
         }
 
         var uploadImage: UIImage?
+        var updateUser: User?
         var uploadEvents: [Recorded<Event<URL>>] = []
-        func upload(avatar image: UIImage) -> Observable<URL> {
+        func upload(avatar image: UIImage, for user: User) -> Observable<URL> {
             uploadImage = image
+            updateUser = user
             return scheduler.createColdObservable(uploadEvents).asObservable()
         }
     }

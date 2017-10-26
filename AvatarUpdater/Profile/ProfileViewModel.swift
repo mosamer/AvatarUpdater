@@ -20,8 +20,9 @@ protocol ProfileAPI {
     /// Upload user's picked avatar
     ///
     /// - Parameter image: Avatar image
+    /// - Parameter user: User to update
     /// - Returns: updated avatar URL
-    func upload(avatar image: UIImage) -> Observable<URL>
+    func upload(avatar image: UIImage, for user: User) -> Observable<URL>
 }
 class ProfileViewModel: ProfileViewModelType {
 
@@ -33,7 +34,7 @@ class ProfileViewModel: ProfileViewModelType {
         self.user = user
         self.api = api
         uploadAction = Action {image in
-            api.upload(avatar: image)
+            api.upload(avatar: image, for: user)
         }
         _pickedImage
             .bind(to: uploadAction.inputs)
