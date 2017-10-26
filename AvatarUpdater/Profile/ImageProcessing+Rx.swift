@@ -15,10 +15,12 @@ extension ObserverType where E == UIImage {
     /// - Returns: Filtered image
     func apply(filter: CIFilter) -> AnyObserver<UIImage> {
         return self.mapObserver {(resizedImage: UIImage) -> UIImage in
+            let context = CIContext()
             let image = CIImage(image: resizedImage)
             filter.setValue(image, forKey: kCIInputImageKey)
             guard let result = filter.outputImage else { return resizedImage }
-            return UIImage(ciImage: result)
+            guard let cgImage = context.createCGImage(result, from: result.extent) else { return resizedImage }
+            return UIImage(cgImage: cgImage)
         }
     }
 
