@@ -86,7 +86,14 @@ class ProfileViewModelSpecs: QuickSpec {
                 scheduler.start()
                 expect(image.lastElement) == #imageLiteral(resourceName: "alt_default_avatar")
             }
-
+        }
+        it("upload picked avatar to API") {
+            sut = ProfileViewModel(user: User(), api: mockAPI)
+            SharingScheduler.mock(scheduler: scheduler) {
+                scheduler.drive(sut.pickedImage, with: [next(0, #imageLiteral(resourceName: "default_avatar"))])
+                scheduler.start()
+                expect(mockAPI.uploadImage) == #imageLiteral(resourceName: "default_avatar")
+            }
         }
     }
 
@@ -101,6 +108,12 @@ class ProfileViewModelSpecs: QuickSpec {
         func image(from url: URL) -> Observable<UIImage> {
             self.imageURL = url.absoluteString
             return scheduler.createColdObservable(imageEvents).asObservable()
+        }
+
+        var uploadImage: UIImage?
+        func upload(avatar image: UIImage) -> Observable<URL> {
+            uploadImage = image
+            return Observable.empty()
         }
     }
 }

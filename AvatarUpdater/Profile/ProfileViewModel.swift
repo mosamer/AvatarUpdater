@@ -8,6 +8,7 @@
 
 import RxSwift
 import RxCocoa
+import Action
 
 /// A type representing API for profile view model
 protocol ProfileAPI {
@@ -16,14 +17,25 @@ protocol ProfileAPI {
     /// - Parameter url: image URL
     /// - Returns: fetched image object
     func image(from url: URL) -> Observable<UIImage>
+    /// Upload user's picked avatar
+    ///
+    /// - Parameter image: Avatar image
+    /// - Returns: updated avatar URL
+    func upload(avatar image: UIImage) -> Observable<URL>
 }
 class ProfileViewModel: ProfileViewModelType {
 
     private let user: User
     private let api: ProfileAPI
+    private let uploadAction: Action<UIImage, URL>
+    private let bag = DisposeBag()
     init(user: User, api: ProfileAPI) {
         self.user = user
         self.api = api
+        uploadAction = Action {image in
+            api.upload(avatar: image)
+        }
+        _pickedImage.bind(to: uploadAction.inputs).disposed(by: bag)
     }
     
     var userAvatar: Driver<UIImage> {

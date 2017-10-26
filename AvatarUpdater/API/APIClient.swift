@@ -146,4 +146,7 @@ extension APIClient: ProfileAPI {
                 return image
         }
     }
+    func upload(avatar image: UIImage) -> Observable<URL> {
+        return Observable.empty()
+    }
 }
